@@ -1,21 +1,15 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
+
+ENV container docker
 
 RUN apt update && apt install -y \
-    openssh-server sudo wget tar xz-utils python3 && \
-    echo "root:root" | chpasswd && \
-    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    systemd systemd-sysv \
+    tmate openssh-server sudo curl wget iproute2 && \
     mkdir -p /run/sshd && \
-    ssh-keygen -A
+    echo "root:root" | chpasswd && \
+    systemctl enable ssh && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-amd64.tar.xz -O /tmp/tmate.tar.xz && \
-    mkdir -p /tmp/tmate && \
-    tar -xf /tmp/tmate.tar.xz -C /tmp/tmate --strip-components=1 && \
-    mv /tmp/tmate/tmate /usr/local/bin/ && \
-    chmod +x /usr/local/bin/tmate && \
-    rm -rf /tmp/tmate*
+STOPSIGNAL SIGRTMIN+3
 
-RUN wget -O /usr/bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py && \
-    chmod +x /usr/bin/systemctl
-
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/sbin/init"]
