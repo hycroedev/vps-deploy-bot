@@ -1,0 +1,8 @@
+import json
+
+with open("config.json") as f:
+    config = json.load(f)
+
+TOKEN = config["token"]
+LOGS_CHANNEL = int(config["logs_channel"])
+ADMIN_CHANNEL = int(config["admin_channel"])
