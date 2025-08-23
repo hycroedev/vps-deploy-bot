@@ -2,19 +2,19 @@ VPS Deploy Bot 🚀
 
 Simple docker build scripts for multiple Linux-based VPS containers.
 
-📂 Supported OS Images
+## Supported OS Images
 
-Arch Linux
+- Arch Linux
 
-Fedora
+- Fedora
 
-Kali Linux
+- Kali Linux
 
-Alpine Linux
+- Alpine Linux
 
-Debian
+- Debian
 
-Ubuntu
+- Ubuntu
 
 
 ## Installation
