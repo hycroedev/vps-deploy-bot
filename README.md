@@ -44,4 +44,4 @@ main : bot-script.py
 ## Credits
 
 - Thanks ,Niwely
-- made by made by hycroedev
+- made by hycroedev
