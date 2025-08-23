@@ -41,19 +41,19 @@ read BOT_TOKEN
 echo -e "${GREEN}[?] Enter Logs Channel ID:${NC}"
 read LOGS_CHANNEL
 
-echo -e "${GREEN}[?] Enter Admin Channel ID:${NC}"
-read ADMIN_CHANNEL
+echo -e "${GREEN}[?] Enter Admin Role ID:${NC}"
+read ADMIN_ROLE
 
-# Save values into a config file
-cat > config.json <<EOF
-{
-  "token": "${BOT_TOKEN}",
-  "logs_channel": "${LOGS_CHANNEL}",
-  "admin_channel": "${ADMIN_CHANNEL}"
-}
-EOF
+# ==============================
+# Auto-edit bot.py
+# ==============================
+sed -i "s|^TOKEN = .*|TOKEN = '${BOT_TOKEN}'  # BOT TOKEN|" bot.py
+sed -i "s|^RAM_LIMIT = .*|RAM_LIMIT = '2g'|" bot.py
+sed -i "s|^SERVER_LIMIT = .*|SERVER_LIMIT = 12|" bot.py
+sed -i "s|^LOGS_CHANNEL_ID = .*|LOGS_CHANNEL_ID = ${LOGS_CHANNEL}    # LOGS CHANNEL|" bot.py
+sed -i "s|^ADMIN_ROLE_ID = .*|ADMIN_ROLE_ID = ${ADMIN_ROLE}     # ADMIN ROLE|" bot.py
 
-echo -e "${GREEN}[✓] Config saved to config.json${NC}"
+echo -e "${GREEN}[✓] bot.py updated with your config!${NC}"
 
 # ==============================
 # Optional: Auto-create systemd service
